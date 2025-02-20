@@ -8,10 +8,10 @@ Imports System.Runtime.InteropServices
 
 ' Проверьте значения атрибутов сборки
 
-<Assembly: AssemblyTitle("Students")>
-<Assembly: AssemblyDescription("")>
-<Assembly: AssemblyCompany("")>
-<Assembly: AssemblyProduct("Students")>
+<Assembly: AssemblyTitle("WCoM")>
+<Assembly: AssemblyDescription("Winterhold College of Magic")>
+<Assembly: AssemblyCompany("Void")>
+<Assembly: AssemblyProduct("WCoM")>
 <Assembly: AssemblyCopyright("Copyright ©  2025")>
 <Assembly: AssemblyTrademark("")>
 
@@ -31,5 +31,5 @@ Imports System.Runtime.InteropServices
 ' используя "*", как показано ниже:
 ' <Assembly: AssemblyVersion("1.0.*")>
 
-<Assembly: AssemblyVersion("1.0.0.0")>
-<Assembly: AssemblyFileVersion("1.0.0.0")>
+<Assembly: AssemblyVersion("1.0.1.0")>
+<Assembly: AssemblyFileVersion("1.0.1.0")>
