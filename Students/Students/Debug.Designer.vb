@@ -62,6 +62,7 @@ Partial Class Debug
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Button3 = New System.Windows.Forms.Button()
         Me.Button4 = New System.Windows.Forms.Button()
+        Me.CheckDB = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
@@ -81,6 +82,7 @@ Partial Class Debug
         '
         'TabPage1
         '
+        Me.TabPage1.Controls.Add(Me.CheckDB)
         Me.TabPage1.Controls.Add(Me.Label10)
         Me.TabPage1.Controls.Add(Me.RankList)
         Me.TabPage1.Controls.Add(Me.RadioTe)
@@ -141,14 +143,14 @@ Partial Class Debug
         '
         'InputStID
         '
-        Me.InputStID.Location = New System.Drawing.Point(216, 51)
+        Me.InputStID.Location = New System.Drawing.Point(39, 17)
         Me.InputStID.Name = "InputStID"
         Me.InputStID.Size = New System.Drawing.Size(89, 20)
         Me.InputStID.TabIndex = 4
         '
         'InputStName
         '
-        Me.InputStName.Location = New System.Drawing.Point(50, 14)
+        Me.InputStName.Location = New System.Drawing.Point(228, 50)
         Me.InputStName.Name = "InputStName"
         Me.InputStName.Size = New System.Drawing.Size(311, 20)
         Me.InputStName.TabIndex = 3
@@ -156,7 +158,7 @@ Partial Class Debug
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(192, 54)
+        Me.Label2.Location = New System.Drawing.Point(15, 20)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(18, 13)
         Me.Label2.TabIndex = 2
@@ -165,7 +167,7 @@ Partial Class Debug
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(15, 17)
+        Me.Label1.Location = New System.Drawing.Point(193, 53)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(29, 13)
         Me.Label1.TabIndex = 1
@@ -450,6 +452,16 @@ Partial Class Debug
         Me.Button4.Text = "Открыть папку с файлом"
         Me.Button4.UseVisualStyleBackColor = True
         '
+        'CheckDB
+        '
+        Me.CheckDB.AutoSize = True
+        Me.CheckDB.Location = New System.Drawing.Point(153, 20)
+        Me.CheckDB.Name = "CheckDB"
+        Me.CheckDB.Size = New System.Drawing.Size(168, 17)
+        Me.CheckDB.TabIndex = 9
+        Me.CheckDB.Text = "Подгружать данные из БД?"
+        Me.CheckDB.UseVisualStyleBackColor = True
+        '
         'Debug
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -510,4 +522,5 @@ Partial Class Debug
     Friend WithEvents TeID3 As TextBox
     Friend WithEvents Label12 As Label
     Friend WithEvents Button4 As Button
+    Friend WithEvents CheckDB As CheckBox
 End Class

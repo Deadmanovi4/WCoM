@@ -23,6 +23,10 @@
             MsgBox("ID преподавателя не указан")
             Exit Sub
         End If
+        If Start.INI.ReadString(LecTeID.Text, "Type", "") <> "TE" Then
+            MsgBox("Игрок '" & TeID3.Text & "' не является преподавателем или не зарегистрирован как преподаватель")
+            Exit Sub
+        End If
         If IsNothing(LecType.Text) Then
             MsgBox("Тема не выбрана")
             Exit Sub
@@ -62,7 +66,9 @@
         Next
         For Each item As String In LecStIDs.Text.Split(",")
             output = LecPoints.Text & ";" & LecType.SelectedIndex & ";" & LecName.Text & ";" & LectDate(0) & ";" & LectDate(1) & ";" & LectDate(2) & ";" & LecTime.Text & ";" & LecTeID.Text
-            Start.INI.Write(item, CStr(getNumber(item)), output)
+            If Start.INI.ReadString(item, "Type", "") = "ST" Then
+                Start.INI.Write(item, CStr(getNumber(item)), output)
+            End If
             stcount += 1
         Next
         output = LecType.SelectedIndex & ";" & LecName.Text & ";" & LectDate(0) & ";" & LectDate(1) & ";" & LectDate(2) & ";" & LecTime.Text & ";" & stcount
@@ -70,18 +76,25 @@
         MsgBox("Зарегистрировано")
     End Sub
     Private Function getNumber(ID As String) As Integer
-        Dim ininum As Integer = Start.INI.ReadSection(ID).Count - 2
-        If ininum = -2 Then
-            ininum = 1
-        End If
-        If ininum = -1 Then
-            ininum = 2
-        End If
-        Return ininum
+        Dim ininum As Integer = 1
+        Do While True
+            If Start.INI.ReadString(ID, ininum, "") = "" Then
+                Return ininum
+            End If
+            ininum += 1
+        Loop
     End Function
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
         If IsNothing(StID3.Text) = True Or IsNothing(TeID3.Text) = True Or IsNothing(Name3.Text) = True Or IsNothing(Type3.Text) = True Or IsNothing(Points3.Text) = True Then
             MsgBox("Все поля должны быть заполнены")
+            Exit Sub
+        End If
+        If Start.INI.ReadString(TeID3.Text, "Type", "") <> "TE" Then
+            MsgBox("Игрок '" & TeID3.Text & "' не является преподавателем или не зарегистрирован как преподаватель")
+            Exit Sub
+        End If
+        If Start.INI.ReadString(StID3.Text, "Type", "") <> "ST" Then
+            MsgBox("Игрок '" & StID3.Text & "' не обучается в Колегии или не зарегистрирован как ученик")
             Exit Sub
         End If
         Dim output As String
@@ -94,5 +107,20 @@
 
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
         Process.Start(Start.dwnpth)
+    End Sub
+
+    Private Sub InputStID_TextChanged(sender As Object, e As EventArgs) Handles InputStID.TextChanged
+        If CheckDB.Checked Then
+            If Start.INI.ReadString(InputStID.Text, "Name", "") <> "" Then
+                InputStName.Text = Start.INI.ReadString(InputStID.Text, "Name")
+                RankList.SelectedIndex = Start.INI.ReadInt32(InputStID.Text, "Rank")
+                Select Case Start.INI.ReadString(InputStID.Text, "Type")
+                    Case "ST"
+                        RadioSt.Checked = True
+                    Case "TE"
+                        RadioTe.Checked = True
+                End Select
+            End If
+        End If
     End Sub
 End Class

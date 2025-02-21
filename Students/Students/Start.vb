@@ -29,6 +29,10 @@ Public Class Start
 
 
 #Region "Updater"
+    Private Sub Update_Click(sender As Object, e As EventArgs) Handles Label1.Click
+        DownFile(Link, "WCoM.ini")
+        LoadData()
+    End Sub
     Public Sub DownFile(link As String, name As String)
         Try
             DC.DownloadFile(New Uri(link), dwnpth & name)
@@ -70,9 +74,13 @@ Public Class Start
         For Each item In INI.ReadSection(ID)
             Splitter = INI.ReadString(ID, CStr(item)).Split(";")
             If Splitter.Count = 4 Then
-                Points(Splitter(1)) += Splitter(0)
                 STCompiler(1) += ("(" & LecTypes(Splitter(1)) & ") ")
-                STCompiler(1) += ("'" & Splitter(2) & "'." & "Работа одобрена: " & INI.ReadString(Splitter(3), "Name", "Неизвестно") & vbNewLine)
+                STCompiler(1) += ("'" & Splitter(2) & "'." & " Работу принял: " & INI.ReadString(Splitter(3), "Name", "Неизвестно") & ".")
+                If Splitter(0) <> 0 Then
+                    Points(Splitter(1)) += Splitter(0)
+                    STCompiler(1) += " Начислено: " & Splitter(0) & " балл(ов)"
+                End If
+                STCompiler(1) += vbNewLine
             End If
             If Splitter.Count = 8 Then
                 Points(Splitter(1)) += Splitter(0)
@@ -171,16 +179,17 @@ Public Class Start
         MsgBox("О программе:" & vbNewLine & vbNewLine & "Автор: Revenore, Рев Ловец-Сокрытого" & vbNewLine & "Discord\Telegram: revenore")
     End Sub
 
-    Private Sub Update_Click(sender As Object, e As EventArgs) Handles Label1.Click
-        DownFile(Link, "WCoM.ini")
-        LoadData()
-    End Sub
+
 
     Private Sub StudentList_SelectedIndexChanged(sender As Object, e As EventArgs) Handles StudentList.SelectedIndexChanged
-        SelectSTData(StudentsList.Item(StudentList.SelectedIndex))
+        If IsNumeric(StudentList.SelectedIndex) Then
+            SelectSTData(StudentsList.Item(StudentList.SelectedIndex))
+        End If
     End Sub
     Private Sub TeacherList_SelectedIndexChanged(sender As Object, e As EventArgs) Handles TeacherList.SelectedIndexChanged
-        SelectTEData(TeachersList.Item(TeacherList.SelectedIndex))
+        If IsNumeric(TeacherList.SelectedIndex) Then
+            SelectTEData(TeachersList.Item(TeacherList.SelectedIndex))
+        End If
     End Sub
 
 #End Region

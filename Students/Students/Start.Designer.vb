@@ -72,6 +72,7 @@ Partial Class Start
         '
         Me.StudentsOutput.Location = New System.Drawing.Point(263, 6)
         Me.StudentsOutput.Name = "StudentsOutput"
+        Me.StudentsOutput.ReadOnly = True
         Me.StudentsOutput.Size = New System.Drawing.Size(531, 509)
         Me.StudentsOutput.TabIndex = 1
         Me.StudentsOutput.Text = ""
@@ -100,6 +101,7 @@ Partial Class Start
         '
         Me.TeacherOutput.Location = New System.Drawing.Point(263, 6)
         Me.TeacherOutput.Name = "TeacherOutput"
+        Me.TeacherOutput.ReadOnly = True
         Me.TeacherOutput.Size = New System.Drawing.Size(531, 509)
         Me.TeacherOutput.TabIndex = 2
         Me.TeacherOutput.Text = ""
