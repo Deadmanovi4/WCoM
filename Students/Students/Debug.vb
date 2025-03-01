@@ -124,4 +124,23 @@
             End If
         End If
     End Sub
+
+    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+        Dim temp As String = Start.INI.ReadString(InputStID.Text, "Name", "")
+        If temp <> "" Then
+            Dim dr As DialogResult = MsgBox("Это действие удалит все записи игрока '" & temp & "'. Продолжить?",
+                                        MsgBoxStyle.YesNo Or MsgBoxStyle.Question,
+                                        "Удаление записей")
+
+            Select Case dr
+                Case DialogResult.Yes
+                    Start.INI.EraseSection(InputStID.Text)
+                    Start.LoadData()
+                Case DialogResult.No
+                    'nothing
+            End Select
+        Else
+            MsgBox("Записи по данному ID не найдены")
+        End If
+    End Sub
 End Class

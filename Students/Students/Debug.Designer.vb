@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class Debug
     Inherits System.Windows.Forms.Form
 
     'Форма переопределяет dispose для очистки списка компонентов.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,10 +20,11 @@ Partial Class Debug
     'Примечание: следующая процедура является обязательной для конструктора форм Windows Forms
     'Для ее изменения используйте конструктор форм Windows Form.  
     'Не изменяйте ее в редакторе исходного кода.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.CheckDB = New System.Windows.Forms.CheckBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.RankList = New System.Windows.Forms.ComboBox()
         Me.RadioTe = New System.Windows.Forms.RadioButton()
@@ -62,7 +63,7 @@ Partial Class Debug
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Button3 = New System.Windows.Forms.Button()
         Me.Button4 = New System.Windows.Forms.Button()
-        Me.CheckDB = New System.Windows.Forms.CheckBox()
+        Me.Button5 = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
@@ -82,6 +83,7 @@ Partial Class Debug
         '
         'TabPage1
         '
+        Me.TabPage1.Controls.Add(Me.Button5)
         Me.TabPage1.Controls.Add(Me.CheckDB)
         Me.TabPage1.Controls.Add(Me.Label10)
         Me.TabPage1.Controls.Add(Me.RankList)
@@ -99,6 +101,16 @@ Partial Class Debug
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Добавить\изменить участника"
         Me.TabPage1.UseVisualStyleBackColor = True
+        '
+        'CheckDB
+        '
+        Me.CheckDB.AutoSize = True
+        Me.CheckDB.Location = New System.Drawing.Point(153, 20)
+        Me.CheckDB.Name = "CheckDB"
+        Me.CheckDB.Size = New System.Drawing.Size(168, 17)
+        Me.CheckDB.TabIndex = 9
+        Me.CheckDB.Text = "Подгружать данные из БД?"
+        Me.CheckDB.UseVisualStyleBackColor = True
         '
         'Label10
         '
@@ -452,15 +464,14 @@ Partial Class Debug
         Me.Button4.Text = "Открыть папку с файлом"
         Me.Button4.UseVisualStyleBackColor = True
         '
-        'CheckDB
+        'Button5
         '
-        Me.CheckDB.AutoSize = True
-        Me.CheckDB.Location = New System.Drawing.Point(153, 20)
-        Me.CheckDB.Name = "CheckDB"
-        Me.CheckDB.Size = New System.Drawing.Size(168, 17)
-        Me.CheckDB.TabIndex = 9
-        Me.CheckDB.Text = "Подгружать данные из БД?"
-        Me.CheckDB.UseVisualStyleBackColor = True
+        Me.Button5.Location = New System.Drawing.Point(353, 91)
+        Me.Button5.Name = "Button5"
+        Me.Button5.Size = New System.Drawing.Size(89, 43)
+        Me.Button5.TabIndex = 10
+        Me.Button5.Text = "Удалить"
+        Me.Button5.UseVisualStyleBackColor = True
         '
         'Debug
         '
@@ -523,4 +534,5 @@ Partial Class Debug
     Friend WithEvents Label12 As Label
     Friend WithEvents Button4 As Button
     Friend WithEvents CheckDB As CheckBox
+    Friend WithEvents Button5 As Button
 End Class
