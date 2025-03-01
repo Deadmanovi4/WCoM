@@ -41,7 +41,7 @@ Public Class Start
     End Sub
 #End Region
 #Region "Compiler"
-    Private Sub LoadData()
+    Public Sub LoadData()
         StudentList.Items.Clear()
         TeacherList.Items.Clear()
         StudentsList.Clear()
@@ -179,15 +179,25 @@ Public Class Start
         MsgBox("О программе:" & vbNewLine & vbNewLine & "Автор: Revenore, Рев Ловец-Сокрытого" & vbNewLine & "Discord\Telegram: revenore")
     End Sub
 
+    Private Sub SearchST_TextChanged(sender As Object, e As EventArgs) Handles SearchST.TextChanged
+        If INI.ReadString(SearchST.Text, "Type", "") = "ST" Then
+            SelectSTData(SearchST.Text)
+        End If
+    End Sub
 
+    Private Sub SearchTe_TextChanged(sender As Object, e As EventArgs) Handles SearchTe.TextChanged
+        If INI.ReadString(SearchTe.Text, "Type", "") = "TE" Then
+            SelectTEData(SearchTe.Text)
+        End If
+    End Sub
 
     Private Sub StudentList_SelectedIndexChanged(sender As Object, e As EventArgs) Handles StudentList.SelectedIndexChanged
-        If IsNumeric(StudentList.SelectedIndex) Then
+        If StudentList.SelectedIndex <> -1 Then
             SelectSTData(StudentsList.Item(StudentList.SelectedIndex))
         End If
     End Sub
     Private Sub TeacherList_SelectedIndexChanged(sender As Object, e As EventArgs) Handles TeacherList.SelectedIndexChanged
-        If IsNumeric(TeacherList.SelectedIndex) Then
+        If TeacherList.SelectedIndex <> -1 Then
             SelectTEData(TeachersList.Item(TeacherList.SelectedIndex))
         End If
     End Sub

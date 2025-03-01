@@ -4,7 +4,7 @@ Imports System.Runtime.InteropServices
 Public Class IniFile
 
     Const KEY_BUFFER_SIZE As Integer = 2047        'размер буфера для значения ключа
-    Const SECTION_BUFFER_SIZE As Integer = 16384   'размер буфера для считівания секций
+    Const SECTION_BUFFER_SIZE As Integer = 16384   'размер буфера для считывания секций
 
     Dim _fileName As String
 
@@ -281,7 +281,7 @@ Friend NotInheritable Class NativeMethods
         ByVal lpFileName As String) As Int32
     End Function
 
-    <DllImport("kernel32.dll", CharSet:=CharSet.Auto, BestFitMapping:=False, ThrowOnUnmappableChar:=True)>
+    <DllImport("kernel32.dll", CharSet:=CharSet.Ansi, BestFitMapping:=False, ThrowOnUnmappableChar:=True)>
     Friend Shared Function WritePrivateProfileString(
         ByVal lpApplicationName As String,
         ByVal lpKeyName As String,

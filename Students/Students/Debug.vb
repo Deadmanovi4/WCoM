@@ -1,12 +1,12 @@
 ﻿Public Class Debug
 
-    Private Sub Debug_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-    End Sub
-
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         If IsNothing(InputStID.Text) = True Or IsNothing(InputStName.Text) = True Or IsNothing(RankList.Text) = True Then
             MsgBox("Все поля должны быть заполнены")
+            Exit Sub
+        End If
+        If RadioSt.Checked <> False And RadioTe.Checked <> False Then
+            MsgBox("Выберите тип ученик\преподаватель")
             Exit Sub
         End If
         Start.INI.Write(InputStID.Text, "Name", InputStName.Text)
@@ -17,6 +17,7 @@
         End If
         Start.INI.Write(InputStID.Text, "Rank", RankList.SelectedIndex)
         MsgBox("Добавлено успешно")
+        Start.LoadData()
     End Sub
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         If IsNothing(LecTeID.Text) Then
@@ -24,7 +25,7 @@
             Exit Sub
         End If
         If Start.INI.ReadString(LecTeID.Text, "Type", "") <> "TE" Then
-            MsgBox("Игрок '" & TeID3.Text & "' не является преподавателем или не зарегистрирован как преподаватель")
+            MsgBox("Игрок '" & LecTeID.Text & "' не является преподавателем или не зарегистрирован как преподаватель")
             Exit Sub
         End If
         If IsNothing(LecType.Text) Then
