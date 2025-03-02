@@ -24,6 +24,7 @@ Partial Class Debug
     Private Sub InitializeComponent()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.Button5 = New System.Windows.Forms.Button()
         Me.CheckDB = New System.Windows.Forms.CheckBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.RankList = New System.Windows.Forms.ComboBox()
@@ -62,12 +63,22 @@ Partial Class Debug
         Me.StID3 = New System.Windows.Forms.TextBox()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Button3 = New System.Windows.Forms.Button()
+        Me.TabPage4 = New System.Windows.Forms.TabPage()
+        Me.Button6 = New System.Windows.Forms.Button()
+        Me.Time4 = New System.Windows.Forms.TextBox()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.TEID4 = New System.Windows.Forms.TextBox()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.STID4 = New System.Windows.Forms.TextBox()
+        Me.Label17 = New System.Windows.Forms.Label()
         Me.Button4 = New System.Windows.Forms.Button()
-        Me.Button5 = New System.Windows.Forms.Button()
+        Me.PrDate = New System.Windows.Forms.TextBox()
+        Me.Label19 = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
         Me.TabPage3.SuspendLayout()
+        Me.TabPage4.SuspendLayout()
         Me.SuspendLayout()
         '
         'TabControl1
@@ -75,6 +86,7 @@ Partial Class Debug
         Me.TabControl1.Controls.Add(Me.TabPage1)
         Me.TabControl1.Controls.Add(Me.TabPage2)
         Me.TabControl1.Controls.Add(Me.TabPage3)
+        Me.TabControl1.Controls.Add(Me.TabPage4)
         Me.TabControl1.Location = New System.Drawing.Point(12, 12)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
@@ -102,6 +114,15 @@ Partial Class Debug
         Me.TabPage1.Text = "Добавить\изменить участника"
         Me.TabPage1.UseVisualStyleBackColor = True
         '
+        'Button5
+        '
+        Me.Button5.Location = New System.Drawing.Point(353, 91)
+        Me.Button5.Name = "Button5"
+        Me.Button5.Size = New System.Drawing.Size(89, 43)
+        Me.Button5.TabIndex = 10
+        Me.Button5.Text = "Удалить"
+        Me.Button5.UseVisualStyleBackColor = True
+        '
         'CheckDB
         '
         Me.CheckDB.AutoSize = True
@@ -125,7 +146,7 @@ Partial Class Debug
         '
         Me.RankList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.RankList.FormattingEnabled = True
-        Me.RankList.Items.AddRange(New Object() {"Новичек", "Ученик", "Адепт", "Эксперт", "Мастер"})
+        Me.RankList.Items.AddRange(New Object() {"Новичок 1 ст", "Новичок 2 ст", "Новичок 3 ст", "Ученик 1 ст", "Ученик 2 ст", "Адепт", "Эксперт", "Мастер"})
         Me.RankList.Location = New System.Drawing.Point(50, 50)
         Me.RankList.Name = "RankList"
         Me.RankList.Size = New System.Drawing.Size(121, 21)
@@ -455,6 +476,81 @@ Partial Class Debug
         Me.Button3.Text = "Регистрация"
         Me.Button3.UseVisualStyleBackColor = True
         '
+        'TabPage4
+        '
+        Me.TabPage4.Controls.Add(Me.PrDate)
+        Me.TabPage4.Controls.Add(Me.Label19)
+        Me.TabPage4.Controls.Add(Me.Button6)
+        Me.TabPage4.Controls.Add(Me.Time4)
+        Me.TabPage4.Controls.Add(Me.Label18)
+        Me.TabPage4.Controls.Add(Me.TEID4)
+        Me.TabPage4.Controls.Add(Me.Label16)
+        Me.TabPage4.Controls.Add(Me.STID4)
+        Me.TabPage4.Controls.Add(Me.Label17)
+        Me.TabPage4.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage4.Name = "TabPage4"
+        Me.TabPage4.Size = New System.Drawing.Size(634, 146)
+        Me.TabPage4.TabIndex = 3
+        Me.TabPage4.Text = "Регистрация часов работы"
+        Me.TabPage4.UseVisualStyleBackColor = True
+        '
+        'Button6
+        '
+        Me.Button6.Location = New System.Drawing.Point(17, 97)
+        Me.Button6.Name = "Button6"
+        Me.Button6.Size = New System.Drawing.Size(86, 36)
+        Me.Button6.TabIndex = 11
+        Me.Button6.Text = "Регистрация"
+        Me.Button6.UseVisualStyleBackColor = True
+        '
+        'Time4
+        '
+        Me.Time4.Location = New System.Drawing.Point(93, 48)
+        Me.Time4.Name = "Time4"
+        Me.Time4.Size = New System.Drawing.Size(88, 20)
+        Me.Time4.TabIndex = 10
+        '
+        'Label18
+        '
+        Me.Label18.AutoSize = True
+        Me.Label18.Location = New System.Drawing.Point(14, 51)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(73, 13)
+        Me.Label18.TabIndex = 9
+        Me.Label18.Text = "Кол-во часов"
+        '
+        'TEID4
+        '
+        Me.TEID4.Location = New System.Drawing.Point(286, 12)
+        Me.TEID4.Name = "TEID4"
+        Me.TEID4.Size = New System.Drawing.Size(100, 20)
+        Me.TEID4.TabIndex = 8
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Location = New System.Drawing.Point(198, 15)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(86, 13)
+        Me.Label16.TabIndex = 7
+        Me.Label16.Text = "Ответственный"
+        '
+        'STID4
+        '
+        Me.STID4.Location = New System.Drawing.Point(81, 12)
+        Me.STID4.Name = "STID4"
+        Me.STID4.Size = New System.Drawing.Size(100, 20)
+        Me.STID4.TabIndex = 6
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.Location = New System.Drawing.Point(14, 15)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(61, 13)
+        Me.Label17.TabIndex = 5
+        Me.Label17.Text = "ID ученика"
+        '
         'Button4
         '
         Me.Button4.Location = New System.Drawing.Point(16, 186)
@@ -464,14 +560,21 @@ Partial Class Debug
         Me.Button4.Text = "Открыть папку с файлом"
         Me.Button4.UseVisualStyleBackColor = True
         '
-        'Button5
+        'PrDate
         '
-        Me.Button5.Location = New System.Drawing.Point(353, 91)
-        Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(89, 43)
-        Me.Button5.TabIndex = 10
-        Me.Button5.Text = "Удалить"
-        Me.Button5.UseVisualStyleBackColor = True
+        Me.PrDate.Location = New System.Drawing.Point(438, 12)
+        Me.PrDate.Name = "PrDate"
+        Me.PrDate.Size = New System.Drawing.Size(100, 20)
+        Me.PrDate.TabIndex = 13
+        '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Label19.Location = New System.Drawing.Point(399, 16)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(133, 39)
+        Me.Label19.TabIndex = 12
+        Me.Label19.Text = "Дата" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "           Формат дд\мм\гг"
         '
         'Debug
         '
@@ -489,6 +592,8 @@ Partial Class Debug
         Me.TabPage2.PerformLayout()
         Me.TabPage3.ResumeLayout(False)
         Me.TabPage3.PerformLayout()
+        Me.TabPage4.ResumeLayout(False)
+        Me.TabPage4.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -535,4 +640,14 @@ Partial Class Debug
     Friend WithEvents Button4 As Button
     Friend WithEvents CheckDB As CheckBox
     Friend WithEvents Button5 As Button
+    Friend WithEvents TabPage4 As TabPage
+    Friend WithEvents Button6 As Button
+    Friend WithEvents Time4 As TextBox
+    Friend WithEvents Label18 As Label
+    Friend WithEvents TEID4 As TextBox
+    Friend WithEvents Label16 As Label
+    Friend WithEvents STID4 As TextBox
+    Friend WithEvents Label17 As Label
+    Friend WithEvents PrDate As TextBox
+    Friend WithEvents Label19 As Label
 End Class

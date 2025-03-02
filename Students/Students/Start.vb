@@ -1,5 +1,4 @@
 ﻿Imports System.Net
-Imports Microsoft.VisualBasic.Logging
 
 Public Class Start
     'Вставьте прямую ссылку ниже
@@ -18,20 +17,25 @@ Public Class Start
     Public LecTypes As String() =
         {"Общее", "Разрушение", "Изменение", "Иллюзия", "Колдовство",
         "Восстановление", "Ритуалистика", "Зачарование", "Исследование", "Алхимия"}
-    Public Ranks As String() = {"Новичек", "Ученик", "Адепт", "Эксперт", "Мастер"}
+    Public Ranks As String() = {"Новичок 1 ст", "Новичок 2 ст", "Новичок 3 ст", "Ученик 1 ст", "Ученик 2 ст", "Адепт", "Эксперт", "Мастер"}
+    Public LimitP As Integer() = {10, 25, 50, 80, 120, 180, 240, 300, -1}
+    Public LimitRT As Integer() = {-1, -1, 5, 10, 15, 25, 40, 60}
 
     Private Sub Start_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         If Debugmode <> True Then
             Lab_Debug.Hide()
         End If
+        'Updater()
         LoadData()
     End Sub
 
-
-#Region "Updater"
-    Private Sub Update_Click(sender As Object, e As EventArgs) Handles Label1.Click
+    Private Sub Updater()
         DownFile(Link, "WCoM.ini")
         LoadData()
+    End Sub
+#Region "Updater"
+    Private Sub Update_Click(sender As Object, e As EventArgs) Handles Label1.Click
+        Updater()
     End Sub
     Public Sub DownFile(link As String, name As String)
         Try
@@ -63,15 +67,38 @@ Public Class Start
         Next
     End Sub
 
-
+    Public Function GetPoints(ID As String, Optional type As Integer = -1) As Integer
+        Dim Points() As Integer = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+        Dim Psumm As Integer = 0
+        Dim Splitter As String()
+        For Each item In INI.ReadSection(ID)
+            Splitter = INI.ReadString(ID, CStr(item)).Split(";")
+            If Splitter.Count = 8 Then
+                Points(Splitter(1)) += Splitter(0)
+                Psumm += Splitter(0)
+            End If
+            If Splitter.Count = 4 Then
+                Points(Splitter(1)) += Splitter(0)
+                Psumm += Splitter(0)
+            End If
+        Next
+        If type <> -1 Then
+            Return Points(type)
+        End If
+        Return Psumm
+    End Function
     Private Sub SelectSTData(ID As String)
         STCompiler.Clear()
         Dim Points() As Integer = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+        Dim PR_time As Integer = 0
+        Dim errors As Integer
         Dim Splitter As String()
         STCompiler.Add(INI.ReadString(ID, "Name", "Неизвестно") & " (" & CStr(ID) & ")" & vbNewLine & vbNewLine & "Ранг: " & GetRank(INI.ReadString(ID, "Rank", "Неизвестно")) & vbNewLine)
         STCompiler.Add("") '1
         STCompiler.Add("") '2
+        STCompiler.Add("") '3
         For Each item In INI.ReadSection(ID)
+            errors = 0
             Splitter = INI.ReadString(ID, CStr(item)).Split(";")
             If Splitter.Count = 4 Then
                 STCompiler(1) += ("(" & LecTypes(Splitter(1)) & ") ")
@@ -87,8 +114,42 @@ Public Class Start
                 STCompiler(2) += ("(" & LecTypes(Splitter(1)) & ") ")
                 STCompiler(2) += ("'" & Splitter(2) & "', " & DateChange(Splitter(3), Splitter(4)) & " (" & Splitter(5) & ") в " & Splitter(6) & ":00. Преподаватель: " & INI.ReadString(Splitter(7), "Name", "Неизвестно") & vbNewLine)
             End If
+            If Splitter.Count = 5 Then
+                If IsNumeric(Splitter(0)) <> True Then
+                    errors = 1 'Проверка на числовое значение
+                End If
+                If errors = 0 Then
+                    If Splitter(0) <= 0 Then
+                        errors = 1 'Проверка на положительное число после проверки на числовое значение
+                    End If
+                End If
+                If errors = 0 Then
+                    PR_time += Splitter(0)
+                    STCompiler(3) += (DateChange(Splitter(1), Splitter(2)) & " (" & Splitter(3) & "). Длилась часов: " & Splitter(0) & ". Проверил: " & INI.ReadString(Splitter(4), "Name", "Неизвестно") & vbNewLine)
+                End If
+            End If
         Next
-        StudentsOutput.Text = STCompiler(0) & vbNewLine
+        Dim rank As Integer = INI.ReadInt32(ID, "Rank", 0)
+        If rank <> 7 Then
+            STCompiler(0) += vbNewLine & "Для следующего ранга требуется:"
+            If GetPoints(ID) >= LimitP(rank) And LimitP(rank) Then
+                STCompiler(0) += vbNewLine & "Достигнут лимит баллов для данного ранга. Требуется аттестация."
+            Else
+                STCompiler(0) += vbNewLine & "Баллы: " & GetPoints(ID) & " из " & LimitP(rank) & " доступных на этом ранге"
+            End If
+            If LimitRT(rank) = -1 Then
+                STCompiler(0) += vbNewLine & "Практика не требуется для повышения ранга."
+            Else
+                STCompiler(0) += vbNewLine & "Проведено " & PR_time & " часов практики из " & LimitRT(rank) & " необходимых."
+            End If
+            If PR_time > LimitRT(rank) And rank > 1 Then
+                STCompiler(0) += vbNewLine & "Свободные баллы из-за переработок: " & (PR_time - LimitRT(rank)) \ 2
+            End If
+        Else
+            STCompiler(0) += vbNewLine & "Достигнут максимальный ранг."
+        End If
+
+        StudentsOutput.Text = STCompiler(0) & vbNewLine & vbNewLine
 
         Dim var2 As Integer = 0
         Dim odd As Boolean = False
@@ -107,6 +168,7 @@ Public Class Start
         Next
         StudentsOutput.Text += vbNewLine & vbNewLine & "Проводил исследования:" & vbNewLine & STCompiler(1)
         StudentsOutput.Text += vbNewLine & vbNewLine & "Участвовал в лекциях:" & vbNewLine & STCompiler(2)
+        StudentsOutput.Text += vbNewLine & vbNewLine & "Практические занятия:" & vbNewLine & STCompiler(3)
     End Sub
     Private Sub SelectTEData(ID As String)
         TECompiler.Clear()

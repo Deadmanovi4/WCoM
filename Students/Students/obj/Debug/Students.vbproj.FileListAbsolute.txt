@@ -11,3 +11,4 @@ C:\Users\User\source\repos\Students\Students\obj\Debug\WCoM.Resources.resources
 C:\Users\User\source\repos\Students\Students\obj\Debug\WCoM.exe
 C:\Users\User\source\repos\Students\Students\obj\Debug\WCoM.xml
 C:\Users\User\source\repos\Students\Students\obj\Debug\WCoM.pdb
+C:\Users\User\source\repos\Students\Students\obj\Debug\WCoM.Log.resources
