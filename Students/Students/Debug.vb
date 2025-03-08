@@ -1,13 +1,27 @@
 ﻿Public Class Debug
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        If IsNothing(InputStID.Text) = True Or IsNothing(InputStName.Text) = True Or IsNothing(RankList.Text) = True Then
+        If IsNothing(InputStID.Text) Or IsNothing(InputStName.Text) Or IsNothing(RankList.Text) Then
             MsgBox("Все поля должны быть заполнены")
             Exit Sub
         End If
-        If RadioSt.Checked <> False And RadioTe.Checked <> False Then
+        If RadioSt.Checked <> True And RadioTe.Checked <> True Then
             MsgBox("Выберите тип ученик\преподаватель")
             Exit Sub
+        End If
+        If Start.INI.ReadString(InputStID.Text, "Type", "none") = "DE" Then
+            Dim dr As DialogResult = MsgBox("Игрок '" & Start.INI.ReadString(InputStID.Text, "Name", "Неизвестный") & "' является исключенным из Коллегии." & vbNewLine &
+                                            "Причина блокировки: " & Start.INI.ReadString(InputStID.Text, "Banned", "Не указано (проверьте записи)") & vbNewLine &
+                                            "Добавляя запись игрока - вы отменяете его исключение. Игрок сохраняет все выданные варны. Продолжить?",
+                                        MsgBoxStyle.YesNo Or MsgBoxStyle.Question,
+                                        "Исключенный игрок")
+
+            Select Case dr
+                Case DialogResult.Yes
+                    Start.INI.DeleteKey(InputStID.Text, "Banned")
+                Case DialogResult.No
+                    Exit Sub
+            End Select
         End If
         Start.INI.Write(InputStID.Text, "Name", InputStName.Text)
         If RadioSt.Checked Then
@@ -100,23 +114,28 @@
         End If
         Return points
     End Function
-    Private Function getNumber(ID As String, Optional prtime As Boolean = False) As Integer
+    Public Function getNumber(ID As String, Optional type As String = "none") As Integer
         Dim ininum As Integer = 1
         Do While True
-            If prtime Then
-                If Start.INI.ReadString(ID, "pr" & ininum, "") = "" Then
-                    Return ininum
-                End If
-            Else
-                If Start.INI.ReadString(ID, ininum, "") = "" Then
-                    Return ininum
-                End If
-            End If
+            Select Case type
+                Case "none"
+                    If Start.INI.ReadString(ID, ininum, "") = "" Then
+                        Return ininum
+                    End If
+                Case "prac"
+                    If Start.INI.ReadString(ID, "pr" & ininum, "") = "" Then
+                        Return ininum
+                    End If
+                Case "warn"
+                    If Start.INI.ReadString(ID, "warn" & ininum, "") = "" Then
+                        Return ininum
+                    End If
+            End Select
             ininum += 1
         Loop
     End Function
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
-        If IsNothing(StID3.Text) = True Or IsNothing(TeID3.Text) = True Or IsNothing(Name3.Text) = True Or IsNothing(Type3.Text) = True Or IsNothing(Points3.Text) = True Then
+        If IsNothing(StID3.Text) Or IsNothing(TeID3.Text) Or IsNothing(Name3.Text) Or IsNothing(Type3.Text) Or IsNothing(Points3.Text) Then
             MsgBox("Все поля должны быть заполнены")
             Exit Sub
         End If
@@ -148,9 +167,13 @@
                 RankList.SelectedIndex = Start.INI.ReadInt32(InputStID.Text, "Rank")
                 Select Case Start.INI.ReadString(InputStID.Text, "Type")
                     Case "ST"
+                        LabelDE.Hide()
                         RadioSt.Checked = True
                     Case "TE"
+                        LabelDE.Hide()
                         RadioTe.Checked = True
+                    Case "DE"
+                        LabelDE.Show()
                 End Select
             End If
         End If
@@ -158,16 +181,19 @@
 
     Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
         Dim temp As String = Start.INI.ReadString(InputStID.Text, "Name", "")
+        If Start.INI.ReadString(InputStID.Text, "Type", "") = "DE" Then
+            MsgBox("Игрок уже исключен")
+            Exit Sub
+        End If
         If temp <> "" Then
-            Dim dr As DialogResult = MsgBox("Это действие удалит все записи игрока '" & temp & "'. Продолжить?",
+            Dim dr As DialogResult = MsgBox("Это действие исключит игрока '" & temp & "' из Коллегии. Все записи будут сохранены. Продолжить?",
                                         MsgBoxStyle.YesNo Or MsgBoxStyle.Question,
-                                        "Удаление записей")
+                                        "Исключение без предупреждения")
 
             Select Case dr
                 Case DialogResult.Yes
-                    Start.INI.Write(InputStID.Text, "typeST", 0)
-                    Start.INI.Write(InputStID.Text, "typeTE", 0)
-                    Start.INI.Write(InputStID.Text, "typeDE", 1)
+                    Start.INI.Write(InputStID.Text, "Type", "DE")
+                    Start.INI.Write(InputStID.Text, "Banned", "Исключен без предупреждения")
                     Start.LoadData()
                 Case DialogResult.No
                     'nothing
@@ -178,7 +204,7 @@
     End Sub
 
     Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
-        If IsNothing(STID4.Text) = True Or IsNothing(TEID4.Text) = True Or IsNothing(Time4.Text) = True Then
+        If IsNothing(STID4.Text) Or IsNothing(TEID4.Text) Or IsNothing(Time4.Text) Then
             MsgBox("Все поля должны быть заполнены")
             Exit Sub
         End If
@@ -206,9 +232,49 @@
         Next
         Dim output As String
         output = Time4.Text & ";" & LectDate(0) & ";" & LectDate(1) & ";" & LectDate(2) & ";" & TeID3.Text
-        Start.INI.Write(STID4.Text, CStr(getNumber(STID4.Text)), output)
+        Start.INI.Write(STID4.Text, CStr(getNumber(STID4.Text, "prac")), output)
         'output = Time4.Text & ";" & STID4.Text
         'Start.INI.Write(TEID4.Text, CStr(getNumber(TEID4.Text)), output)
         MsgBox("Зарегистрировано")
+    End Sub
+
+    Private Sub Button7_Click(sender As Object, e As EventArgs) Handles Button7.Click
+        If IsNothing(ID5.Text) Or IsNothing(TEID5.Text) Or IsNothing(Date5.Text) Or IsNothing(Reason5.Text) Then
+            MsgBox("Все поля должны быть заполнены")
+            Exit Sub
+        End If
+        Dim LectDate() As String = Date5.Text.Split("\")
+        If LectDate.Count <> 3 Then
+            MsgBox("Нужна дата.")
+        End If
+        For Each value As String In LectDate
+            If IsNumeric(value) <> True Then
+                MsgBox("Дата не является числом")
+                Exit Sub
+            End If
+        Next
+        Dim Warncount As Integer = getNumber(ID5.Text, "warn")
+        Dim output As String = Reason5.Text & "&" & TEID5.Text & "&" & LectDate(0) & "&" & LectDate(1) & "&" & LectDate(2)
+        If Warncount = 4 And Start.INI.ReadString(ID5.Text, "Type", "") <> "DE" Then
+            Warncount = 3
+        End If
+        If Warncount = 3 Then
+            Dim dr As DialogResult = MsgBox("Выдача третьего предупреждения переместит '" & Start.INI.ReadString(ID5.Text, "Name", "Неизвестно") & "' в список исключенных. Продолжить", MsgBoxStyle.YesNo, "Угроза исключения")
+            Select Case dr
+                Case DialogResult.Yes
+                    Start.INI.Write(ID5.Text, "Type", "DE")
+                    Start.INI.Write(ID5.Text, "Warn3", output)
+                    Start.INI.Write(ID5.Text, "Banned", "Получил три варна")
+                    Start.LoadData()
+                    MsgBox("Игрок исключен")
+                Case DialogResult.No
+                    'nothing
+            End Select
+        ElseIf Warncount = 4 Then
+            MsgBox("Игрок уже исключен")
+        Else
+            Start.INI.Write(ID5.Text, "Warn" & CStr(Warncount), output)
+            MsgBox("Варн выдан.")
+        End If
     End Sub
 End Class

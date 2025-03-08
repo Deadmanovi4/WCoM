@@ -235,7 +235,7 @@ Friend NotInheritable Class NativeMethods
         ByVal lpFileName As String) As Int32
     End Function
 
-    <DllImport("kernel32.dll", CharSet:=CharSet.Unicode, BestFitMapping:=False, ThrowOnUnmappableChar:=True)>
+    <DllImport("kernel32.dll", CharSet:=CharSet.Auto, BestFitMapping:=False, ThrowOnUnmappableChar:=True)>
     Friend Shared Function GetPrivateProfileString(
         ByVal lpApplicationName As String,
         ByVal lpKeyName As String,
@@ -245,7 +245,7 @@ Friend NotInheritable Class NativeMethods
         ByVal lpFileName As String) As Int32
     End Function
 
-    <DllImport("kernel32.dll", CharSet:=CharSet.Unicode, BestFitMapping:=False, ThrowOnUnmappableChar:=True)>
+    <DllImport("kernel32.dll", CharSet:=CharSet.Auto, BestFitMapping:=False, ThrowOnUnmappableChar:=True)>
     Friend Shared Function GetPrivateProfileString(
         ByVal lpApplicationName As String,
         ByVal lpKeyName As String,
@@ -255,7 +255,7 @@ Friend NotInheritable Class NativeMethods
         ByVal lpFileName As String) As Int32
     End Function
 
-    <DllImport("kernel32.dll", CharSet:=CharSet.Unicode, BestFitMapping:=False, ThrowOnUnmappableChar:=True)>
+    <DllImport("kernel32.dll", CharSet:=CharSet.Auto, BestFitMapping:=False, ThrowOnUnmappableChar:=True)>
     Friend Shared Function GetPrivateProfileString(
         ByVal lpApplicationName As String,
         ByVal lpKeyName As String,
@@ -281,7 +281,7 @@ Friend NotInheritable Class NativeMethods
         ByVal lpFileName As String) As Int32
     End Function
 
-    <DllImport("kernel32.dll", CharSet:=CharSet.Unicode, BestFitMapping:=False, ThrowOnUnmappableChar:=True)>
+    <DllImport("kernel32.dll", CharSet:=CharSet.Auto, BestFitMapping:=False, ThrowOnUnmappableChar:=True)>
     Friend Shared Function WritePrivateProfileString(
         ByVal lpApplicationName As String,
         ByVal lpKeyName As String,
@@ -289,7 +289,7 @@ Friend NotInheritable Class NativeMethods
         ByVal lpFileName As String) As Int32
     End Function
 
-    <DllImport("kernel32.dll", CharSet:=CharSet.Unicode, BestFitMapping:=False, ThrowOnUnmappableChar:=True)>
+    <DllImport("kernel32.dll", CharSet:=CharSet.Auto, BestFitMapping:=False, ThrowOnUnmappableChar:=True)>
     Friend Shared Function WritePrivateProfileStruct(
         ByVal lpszSection As String,
         ByVal lpszKey As String,

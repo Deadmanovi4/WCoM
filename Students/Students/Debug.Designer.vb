@@ -64,6 +64,8 @@ Partial Class Debug
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Button3 = New System.Windows.Forms.Button()
         Me.TabPage4 = New System.Windows.Forms.TabPage()
+        Me.PrDate = New System.Windows.Forms.TextBox()
+        Me.Label19 = New System.Windows.Forms.Label()
         Me.Button6 = New System.Windows.Forms.Button()
         Me.Time4 = New System.Windows.Forms.TextBox()
         Me.Label18 = New System.Windows.Forms.Label()
@@ -71,14 +73,24 @@ Partial Class Debug
         Me.Label16 = New System.Windows.Forms.Label()
         Me.STID4 = New System.Windows.Forms.TextBox()
         Me.Label17 = New System.Windows.Forms.Label()
+        Me.TabPage5 = New System.Windows.Forms.TabPage()
+        Me.Date5 = New System.Windows.Forms.TextBox()
+        Me.Label20 = New System.Windows.Forms.Label()
+        Me.Button7 = New System.Windows.Forms.Button()
+        Me.Reason5 = New System.Windows.Forms.TextBox()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.TEID5 = New System.Windows.Forms.TextBox()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.ID5 = New System.Windows.Forms.TextBox()
+        Me.Label23 = New System.Windows.Forms.Label()
         Me.Button4 = New System.Windows.Forms.Button()
-        Me.PrDate = New System.Windows.Forms.TextBox()
-        Me.Label19 = New System.Windows.Forms.Label()
+        Me.LabelDE = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
         Me.TabPage3.SuspendLayout()
         Me.TabPage4.SuspendLayout()
+        Me.TabPage5.SuspendLayout()
         Me.SuspendLayout()
         '
         'TabControl1
@@ -87,6 +99,7 @@ Partial Class Debug
         Me.TabControl1.Controls.Add(Me.TabPage2)
         Me.TabControl1.Controls.Add(Me.TabPage3)
         Me.TabControl1.Controls.Add(Me.TabPage4)
+        Me.TabControl1.Controls.Add(Me.TabPage5)
         Me.TabControl1.Location = New System.Drawing.Point(12, 12)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
@@ -95,6 +108,7 @@ Partial Class Debug
         '
         'TabPage1
         '
+        Me.TabPage1.Controls.Add(Me.LabelDE)
         Me.TabPage1.Controls.Add(Me.Button5)
         Me.TabPage1.Controls.Add(Me.CheckDB)
         Me.TabPage1.Controls.Add(Me.Label10)
@@ -381,7 +395,7 @@ Partial Class Debug
         Me.TabPage3.Name = "TabPage3"
         Me.TabPage3.Size = New System.Drawing.Size(634, 146)
         Me.TabPage3.TabIndex = 2
-        Me.TabPage3.Text = "Регистрация исследования"
+        Me.TabPage3.Text = "Доклад\исследование"
         Me.TabPage3.UseVisualStyleBackColor = True
         '
         'Points3
@@ -491,8 +505,24 @@ Partial Class Debug
         Me.TabPage4.Name = "TabPage4"
         Me.TabPage4.Size = New System.Drawing.Size(634, 146)
         Me.TabPage4.TabIndex = 3
-        Me.TabPage4.Text = "Регистрация часов работы"
+        Me.TabPage4.Text = "Практика"
         Me.TabPage4.UseVisualStyleBackColor = True
+        '
+        'PrDate
+        '
+        Me.PrDate.Location = New System.Drawing.Point(438, 12)
+        Me.PrDate.Name = "PrDate"
+        Me.PrDate.Size = New System.Drawing.Size(100, 20)
+        Me.PrDate.TabIndex = 13
+        '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Label19.Location = New System.Drawing.Point(399, 16)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(133, 39)
+        Me.Label19.TabIndex = 12
+        Me.Label19.Text = "Дата" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "           Формат дд\мм\гг"
         '
         'Button6
         '
@@ -551,6 +581,97 @@ Partial Class Debug
         Me.Label17.TabIndex = 5
         Me.Label17.Text = "ID ученика"
         '
+        'TabPage5
+        '
+        Me.TabPage5.Controls.Add(Me.Date5)
+        Me.TabPage5.Controls.Add(Me.Label20)
+        Me.TabPage5.Controls.Add(Me.Button7)
+        Me.TabPage5.Controls.Add(Me.Reason5)
+        Me.TabPage5.Controls.Add(Me.Label21)
+        Me.TabPage5.Controls.Add(Me.TEID5)
+        Me.TabPage5.Controls.Add(Me.Label22)
+        Me.TabPage5.Controls.Add(Me.ID5)
+        Me.TabPage5.Controls.Add(Me.Label23)
+        Me.TabPage5.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage5.Name = "TabPage5"
+        Me.TabPage5.Size = New System.Drawing.Size(634, 146)
+        Me.TabPage5.TabIndex = 4
+        Me.TabPage5.Text = "Предупреждение"
+        Me.TabPage5.UseVisualStyleBackColor = True
+        '
+        'Date5
+        '
+        Me.Date5.Location = New System.Drawing.Point(438, 13)
+        Me.Date5.Name = "Date5"
+        Me.Date5.Size = New System.Drawing.Size(100, 20)
+        Me.Date5.TabIndex = 22
+        '
+        'Label20
+        '
+        Me.Label20.AutoSize = True
+        Me.Label20.Location = New System.Drawing.Point(399, 17)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(133, 39)
+        Me.Label20.TabIndex = 21
+        Me.Label20.Text = "Дата" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "           Формат дд\мм\гг"
+        '
+        'Button7
+        '
+        Me.Button7.Location = New System.Drawing.Point(17, 98)
+        Me.Button7.Name = "Button7"
+        Me.Button7.Size = New System.Drawing.Size(86, 36)
+        Me.Button7.TabIndex = 20
+        Me.Button7.Text = "Регистрация"
+        Me.Button7.UseVisualStyleBackColor = True
+        '
+        'Reason5
+        '
+        Me.Reason5.Location = New System.Drawing.Point(93, 49)
+        Me.Reason5.Name = "Reason5"
+        Me.Reason5.Size = New System.Drawing.Size(293, 20)
+        Me.Reason5.TabIndex = 19
+        '
+        'Label21
+        '
+        Me.Label21.AutoSize = True
+        Me.Label21.Location = New System.Drawing.Point(14, 52)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(50, 13)
+        Me.Label21.TabIndex = 18
+        Me.Label21.Text = "Причина"
+        '
+        'TEID5
+        '
+        Me.TEID5.Location = New System.Drawing.Point(286, 13)
+        Me.TEID5.Name = "TEID5"
+        Me.TEID5.Size = New System.Drawing.Size(100, 20)
+        Me.TEID5.TabIndex = 17
+        '
+        'Label22
+        '
+        Me.Label22.AutoSize = True
+        Me.Label22.Location = New System.Drawing.Point(231, 17)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(40, 13)
+        Me.Label22.TabIndex = 16
+        Me.Label22.Text = "Выдал"
+        '
+        'ID5
+        '
+        Me.ID5.Location = New System.Drawing.Point(101, 13)
+        Me.ID5.Name = "ID5"
+        Me.ID5.Size = New System.Drawing.Size(100, 20)
+        Me.ID5.TabIndex = 15
+        '
+        'Label23
+        '
+        Me.Label23.AutoSize = True
+        Me.Label23.Location = New System.Drawing.Point(14, 16)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(81, 13)
+        Me.Label23.TabIndex = 14
+        Me.Label23.Text = "ID нарушителя"
+        '
         'Button4
         '
         Me.Button4.Location = New System.Drawing.Point(16, 186)
@@ -560,21 +681,15 @@ Partial Class Debug
         Me.Button4.Text = "Открыть папку с файлом"
         Me.Button4.UseVisualStyleBackColor = True
         '
-        'PrDate
+        'LabelDE
         '
-        Me.PrDate.Location = New System.Drawing.Point(438, 12)
-        Me.PrDate.Name = "PrDate"
-        Me.PrDate.Size = New System.Drawing.Size(100, 20)
-        Me.PrDate.TabIndex = 13
-        '
-        'Label19
-        '
-        Me.Label19.AutoSize = True
-        Me.Label19.Location = New System.Drawing.Point(399, 16)
-        Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(133, 39)
-        Me.Label19.TabIndex = 12
-        Me.Label19.Text = "Дата" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "           Формат дд\мм\гг"
+        Me.LabelDE.AutoSize = True
+        Me.LabelDE.Location = New System.Drawing.Point(415, 75)
+        Me.LabelDE.Name = "LabelDE"
+        Me.LabelDE.Size = New System.Drawing.Size(124, 13)
+        Me.LabelDE.TabIndex = 11
+        Me.LabelDE.Text = "Исключен из Коллегии"
+        Me.LabelDE.Visible = False
         '
         'Debug
         '
@@ -594,6 +709,8 @@ Partial Class Debug
         Me.TabPage3.PerformLayout()
         Me.TabPage4.ResumeLayout(False)
         Me.TabPage4.PerformLayout()
+        Me.TabPage5.ResumeLayout(False)
+        Me.TabPage5.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -650,4 +767,15 @@ Partial Class Debug
     Friend WithEvents Label17 As Label
     Friend WithEvents PrDate As TextBox
     Friend WithEvents Label19 As Label
+    Friend WithEvents TabPage5 As TabPage
+    Friend WithEvents Date5 As TextBox
+    Friend WithEvents Label20 As Label
+    Friend WithEvents Button7 As Button
+    Friend WithEvents Reason5 As TextBox
+    Friend WithEvents Label21 As Label
+    Friend WithEvents TEID5 As TextBox
+    Friend WithEvents Label22 As Label
+    Friend WithEvents ID5 As TextBox
+    Friend WithEvents Label23 As Label
+    Friend WithEvents LabelDE As Label
 End Class

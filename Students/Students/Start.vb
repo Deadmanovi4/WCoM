@@ -12,13 +12,13 @@ Public Class Start
     Dim WithEvents DC As New WebClient
     Dim SelectedStudent As Integer
     Dim SelectedTeacher As Integer
-    Dim StudentsList, TeachersList As New List(Of String)
-    Dim STCompiler, TECompiler As New List(Of String)
+    Dim StudentsList, TeachersList, DeletedList As New List(Of String)
+    Dim STCompiler, TECompiler, DECompiler As New List(Of String)
     Public LecTypes As String() =
         {"Общее", "Разрушение", "Изменение", "Иллюзия", "Колдовство",
         "Восстановление", "Ритуалистика", "Зачарование", "Исследование", "Алхимия"}
     Public Ranks As String() = {"Новичок 1 ст", "Новичок 2 ст", "Новичок 3 ст", "Ученик 1 ст", "Ученик 2 ст", "Адепт", "Эксперт", "Мастер"}
-    Public LimitP As Integer() = {10, 25, 50, 80, 120, 180, 240, 300, -1}
+    Public LimitP As Integer() = {25, 55, 85, 115, 145, 185, 225, -1}
     Public LimitRT As Integer() = {-1, -1, 5, 10, 15, 25, 40, 60}
 
     Private Sub Start_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -48,22 +48,33 @@ Public Class Start
     Public Sub LoadData()
         StudentList.Items.Clear()
         TeacherList.Items.Clear()
+        DEList.Items.Clear()
         StudentsList.Clear()
         TeachersList.Clear()
+        DeletedList.Clear()
         StudentsOutput.Text = ""
         TeacherOutput.Text = ""
+        DEOutput.Text = ""
         Dim stcount As Integer = 1
         Dim tecount As Integer = 1
+        Dim decount As Integer = 1
         For Each ID As String In INI.ReadSections()
-            If INI.ReadString(ID, "type", "") = "ST" Then
-                StudentList.Items.Add(stcount & ". " & INI.ReadString(ID, "name", "Неизвестно"))
-                StudentsList.Add(ID)
-                stcount += 1
-            ElseIf INI.ReadString(ID, "type", "") = "TE" Then
-                TeacherList.Items.Add(tecount & ". " & INI.ReadString(ID, "name", "Неизвестно"))
-                TeachersList.Add(ID)
-                tecount += 1
-            End If
+            Select Case INI.ReadString(ID, "type", "")
+                Case "ST"
+                    StudentList.Items.Add(stcount & ". " & INI.ReadString(ID, "name", "Неизвестно"))
+                    StudentsList.Add(ID)
+                    stcount += 1
+                Case "TE"
+                    TeacherList.Items.Add(tecount & ". " & INI.ReadString(ID, "name", "Неизвестно"))
+                    TeachersList.Add(ID)
+                    tecount += 1
+                Case "DE"
+                    DEList.Items.Add(decount & ". " & INI.ReadString(ID, "name", "Неизвестно"))
+                    DeletedList.Add(ID)
+                    decount += 1
+                Case Else
+                    'nothing
+            End Select
         Next
     End Sub
 
@@ -129,10 +140,13 @@ Public Class Start
                 End If
             End If
         Next
+        If Debug.getNumber(ID, "warn") > 1 Then
+            STCompiler(0) += vbNewLine & "У игрока есть предупреждения: " & Debug.getNumber(ID, "warn") - 1 & vbNewLine
+        End If
         Dim rank As Integer = INI.ReadInt32(ID, "Rank", 0)
         If rank <> 7 Then
             STCompiler(0) += vbNewLine & "Для следующего ранга требуется:"
-            If GetPoints(ID) >= LimitP(rank) And LimitP(rank) Then
+            If GetPoints(ID) >= LimitP(rank) Then
                 STCompiler(0) += vbNewLine & "Достигнут лимит баллов для данного ранга. Требуется аттестация."
             Else
                 STCompiler(0) += vbNewLine & "Баллы: " & GetPoints(ID) & " из " & LimitP(rank) & " доступных на этом ранге"
@@ -187,9 +201,29 @@ Public Class Start
                 TECompiler(2) += ("'" & Splitter(1) & "', " & DateChange(Splitter(2), Splitter(3)) & " (" & Splitter(4) & ") в " & Splitter(5) & ":00. Кол-во слушателей: " & Splitter(6) & vbNewLine)
             End If
         Next
+        If Debug.getNumber(ID, "warn") > 1 Then
+            TECompiler(0) += vbNewLine & "У игрока есть предупреждения: " & Debug.getNumber(ID, "warn") - 1 & vbNewLine
+        End If
         TeacherOutput.Text = TECompiler(0) & vbNewLine
         TeacherOutput.Text += vbNewLine & vbNewLine & "Принял исследования:" & vbNewLine & TECompiler(1)
         TeacherOutput.Text += vbNewLine & vbNewLine & "Проводил лекции:" & vbNewLine & TECompiler(2)
+    End Sub
+    Private Sub SelectDEData(ID As String)
+        DECompiler.Clear()
+        Dim Splitter As String()
+        Dim a = 0
+        Dim b = Debug.getNumber(ID, "warn") - 1
+        DECompiler.Add(INI.ReadString(ID, "Name", "Неизвестно") & " (" & CStr(ID) & ")" & vbNewLine & vbNewLine & "Ранг: " & GetRank(INI.ReadString(ID, "Rank", "Неизвестно")) & vbNewLine)
+
+        DECompiler(0) += vbNewLine & "Причина исключения: " & INI.ReadString(ID, "Banned", "не указано") & vbNewLine & "Выданные варны:"
+        Do While a <= b
+            Splitter = INI.ReadString(ID, "Warn" & CStr(a), "").Split("&")
+            If Splitter.Count = 5 Then
+                DECompiler(0) += vbNewLine & "Варн " & a & ": " & Splitter(0) & ", выдан '" & INI.ReadString(Splitter(1), "Name", "Неизвестно") & "' " & DateChange(Splitter(2), Splitter(3)) & " " & Splitter(4)
+            End If
+            a += 1
+        Loop
+        DEOutput.Text = DECompiler(0) & vbNewLine
     End Sub
     Private Function DateChange(day As Integer, month As Integer) As String
         Dim output As String = CStr(day) & " числа "
@@ -250,6 +284,18 @@ Public Class Start
     Private Sub SearchTe_TextChanged(sender As Object, e As EventArgs) Handles SearchTe.TextChanged
         If INI.ReadString(SearchTe.Text, "Type", "") = "TE" Then
             SelectTEData(SearchTe.Text)
+        End If
+    End Sub
+
+    Private Sub SearchDE_TextChanged(sender As Object, e As EventArgs) Handles SearchDE.TextChanged
+        If INI.ReadString(SearchDE.Text, "Type", "") = "DE" Then
+            SelectDEData(SearchDE.Text)
+        End If
+    End Sub
+
+    Private Sub DEBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles DEList.SelectedIndexChanged
+        If DEList.SelectedIndex <> -1 Then
+            SelectDEData(DeletedList.Item(DEList.SelectedIndex))
         End If
     End Sub
 
